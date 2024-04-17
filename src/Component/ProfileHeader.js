@@ -6,99 +6,11 @@ import api from '../Component/API/jsonapi';
 import { useDispatch, useSelector } from 'react-redux';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addTocart } from '../Redux/Action/Action/profileAction'; // Assuming this is correctly defined
+import CheckoutForm from './CheckOutForm';
 
-// Define a CheckoutForm component
-function CheckoutForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    address: '',
-    message: ''
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-  };
 
-  return (
-    <form onSubmit={handleSubmit} style={{ display: "grid", marginBottom: '15px', margin:'10px' }}>
-      <TextField
-        name="name"
-        label="Name"
-        value={formData.name}
-        onChange={handleChange}
-
-        margin="normal"
-        required
-      />
-      <TextField
-        name="email"
-        label="Email"
-        value={formData.email}
-        onChange={handleChange}
-
-        margin="normal"
-        required
-      />
-      <TextField
-        name="address"
-        label="Address"
-        value={formData.address}
-        onChange={handleChange}
-
-        margin="normal"
-        required
-      />
-      <TextField
-        name="PhoneNumber"
-        label="Phone Number"
-        value={formData.phonenumber}
-        onChange={handleChange}
-
-        margin="normal"
-        required
-      />
-
-      <TextField
-        name="message"
-        label="Message"
-        value={formData.message}
-        onChange={handleChange}
-
-        margin="normal"
-        multiline
-        rows={2}
-      />
-      <Button
-      variant="contained"
-      sx={{
-        backgroundColor: 'orange',
-        color: 'white',
-        width: '80%',
-        marginLeft: '30px',
-        '&:hover': {
-          backgroundColor: 'orange',
-        },
-        '&:active': {
-          backgroundColor: 'orange',
-        },
-      }}
-     // onClick={handleCheckoutClick}
-    >
-     Buy now
-    </Button>
-    </form>
-  );
-}
 
 function ProfileHeader() {
   const dispatch = useDispatch();
@@ -185,11 +97,7 @@ function ProfileHeader() {
     setShowCheckoutForm(true);
   };
 
-  // Function to handle form submission
-  const handleFormSubmit = (formData) => {
-    // Handle form submission here, e.g., submit data to server
-    console.log(formData);
-  };
+ 
 
   const navLinks = [
     { title: "Business Details", sectionId: 'businessDetails' },
@@ -228,7 +136,7 @@ function ProfileHeader() {
           </List>
 
           {showCheckoutForm ? (
-            <CheckoutForm onSubmit={handleFormSubmit} />
+            <CheckoutForm  />
           ) : (
             <Button
               variant="contained"

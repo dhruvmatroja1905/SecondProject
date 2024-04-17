@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Box, Typography, Card } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -7,7 +7,7 @@ import Admin from './Admin';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { BarChart } from '@mui/x-charts/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
-
+import api from './API/jsonapi'
 
 const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
 const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
@@ -22,6 +22,9 @@ const xLabels = [
 ];
 
 const Dashboard = () => {
+
+   
+
     return (
         <div style={{ backgroundColor: '#1D1F21', minHeight: '100vh',  }}>
             <Box>
@@ -156,9 +159,12 @@ const Dashboard = () => {
                     
                     </Box>
 
+                      
 
                 </Box>
+
             </Box>
+            
         </div>
     );
 }

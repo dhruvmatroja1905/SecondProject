@@ -11,6 +11,8 @@ import TryForm from './Component/tryForm';
 import Register from './Pages/Register';
 import SignInOutContainer from './Container/index'
 import Dashboard from './Component/Dashboard';
+import Inquiry from './Component/Inquiry';
+import Payment from './Component/Payment';
 
 // Lazy load AllUsers component
 const AllUsers = lazy(() => import('./AllUsers'));
@@ -23,6 +25,8 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/inquiry" element={<Inquiry/>} />
+          <Route path="/payment" element={<Payment/>} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/project" element={<Project />} />
           <Route path="/register" element={<Register />} />

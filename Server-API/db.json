@@ -1138,11 +1138,21 @@
       "id": "7c74"
     }
   ],
+  "Inquiry": [
+    {
+      "id": "2212",
+      "name": "Dharmrajsinh Matroja",
+      "email": "dharmrajsinhmatroja2003@gmail.com",
+      "address": "VADODARA, GUJARAT",
+      "phoneNumber": "6353306514",
+      "message": "good"
+    }
+  ],
   "users": [
     {
       "Userid": "1",
       "businessName": "Tech Solutions Inc.",
-      "id":"tech-solutions-inc",
+      "id": "tech-solutions-inc",
       "businessDescription": "Tech Solutions Inc. provides comprehensive IT solutions tailored to businesses' needs. We specialize in software development, cloud computing, and cybersecurity.",
       "businessCategory": "Information Technology",
       "businessAddress": "123 Main St, Anytown, USA",
@@ -1175,7 +1185,7 @@
     {
       "Userid": "2",
       "businessName": "Smith & Co. Web Solutions",
-      "id":"smith-co-web-solutions",
+      "id": "smith-co-web-solutions",
       "businessDescription": "Smith & Co. Web Solutions delivers innovative technology solutions to optimize businesses' processes. Our expertise lies in web development, mobile app development, and database management.",
       "businessCategory": "Technology",
       "businessAddress": "456 Oak St, Othertown, USA",
@@ -1215,7 +1225,7 @@
     {
       "Userid": "3",
       "businessName": "Alpha Marketing Agency",
-      "id":"alpha-marketing-agency",
+      "id": "alpha-marketing-agency",
       "businessDescription": "Alpha Marketing Agency specializes in digital marketing services including SEO, social media management, and content creation.",
       "businessCategory": "Marketing",
       "businessAddress": "789 Elm St, Anothertown, USA",
@@ -1255,7 +1265,7 @@
     {
       "Userid": "4",
       "businessName": "GreenTech Solutions",
-      "id":"greentech-solutions",
+      "id": "greentech-solutions",
       "businessDescription": "GreenTech Solutions offers eco-friendly technology solutions including solar energy systems, energy-efficient appliances, and recycling programs.",
       "businessCategory": "Environmental Technology",
       "businessAddress": "012 Maple St, Somewhere, USA",
@@ -1295,7 +1305,7 @@
     {
       "Userid": "5",
       "businessName": "HealthFirst Fitness Center",
-      "id":"healthfirst-fitness-center",
+      "id": "healthfirst-fitness-center",
       "businessDescription": "HealthFirst Fitness Center offers state-of-the-art fitness facilities including gym equipment, group classes, and personal training sessions.",
       "businessCategory": "Health & Wellness",
       "businessAddress": "345 Pine St, Anywhere, USA",
@@ -1335,7 +1345,7 @@
     {
       "Userid": "6",
       "businessName": "Fresh Eats Grocery Store",
-      "id":"fresh-eats-grocery-store",
+      "id": "fresh-eats-grocery-store",
       "businessDescription": "Fresh Eats Grocery Store offers a wide selection of fresh produce, organic products, and gourmet items.",
       "businessCategory": "Retail",
       "businessAddress": "678 Elm St, Somewhere, USA",
@@ -1375,7 +1385,7 @@
     {
       "Userid": "7",
       "businessName": "Golden Pet Grooming Salon",
-      "id":"golden-pet-grooming-salon",
+      "id": "golden-pet-grooming-salon",
       "businessDescription": "Golden Pet Grooming Salon offers professional grooming services for dogs and cats, including baths, haircuts, and nail trimming.",
       "businessCategory": "Pet Services",
       "businessAddress": "890 Oak St, Othertown, USA",
@@ -1415,7 +1425,7 @@
     {
       "Userid": "8",
       "businessName": "Books & Brews Cafe",
-      "id":"books-brews-cafe",
+      "id": "books-brews-cafe",
       "businessDescription": "Books & Brews Cafe offers a cozy environment for book lovers to enjoy coffee, tea, and light snacks while browsing through a wide selection of books.",
       "businessCategory": "Food & Beverage",
       "businessAddress": "123 Maple St, Anywhere, USA",
@@ -1455,7 +1465,7 @@
     {
       "Userid": "9",
       "businessName": "Fashion Forward Boutique",
-      "id":"fashion-forward-boutique",
+      "id": "fashion-forward-boutique",
       "businessDescription": "Fashion Forward Boutique offers trendy clothing, shoes, and accessories for men and women, curated by fashion experts.",
       "businessCategory": "Retail",
       "businessAddress": "456 Elm St, Somewhere, USA",
@@ -1495,7 +1505,7 @@
     {
       "Userid": "10",
       "businessName": "Happy Paws Veterinary Clinic",
-      "id":"happy-paws-veterinary-clinic",
+      "id": "happy-paws-veterinary-clinic",
       "businessDescription": "Happy Paws Veterinary Clinic provides compassionate care and medical services for pets, including wellness exams, vaccinations, and surgery.",
       "businessCategory": "Veterinary Services",
       "businessAddress": "789 Oak St, Othertown, USA",
@@ -1572,12 +1582,10 @@
       "establishmentDate": "2018-08-20",
       "avatar": "https://i.imgur.com/ZANVnHE.jpeg",
       "mapEmbedUrl": "https://www.google.com/maps/embed?pb=456%20Oak%20St%2C%20Techville%2C%20USA"
-   
-    } ,
+    },
     {
-      "Userid":"12",
-      "id":"newtech-innovations",
-      
+      "Userid": "12",
+      "id": "newtech-innovations",
       "businessName": "NewTech Innovations",
       "businessDescription": "NewTech Innovations provides cutting-edge technology solutions for businesses worldwide. Our products and services are designed to revolutionize industries and drive growth.",
       "businessCategory": "Technology",
@@ -1770,68 +1778,66 @@
             "updatedAt": "2024-02-22T02:08:48.000Z"
           }
         },
-          {
-            "id": "47",
-            "title": "Radiant Citrus Eau de Parfum",
-            "price": 73,
-            "description": "Indulge in the essence of summer with this vibrant citrus-scented Eau de Parfum. Encased in a sleek glass bottle with a bold orange cap, this fragrance embodies freshness and elegance. Perfect for daily wear, it's an olfactory delight that leaves a lasting, zesty impression.",
-            "images": [
-              "https://i.imgur.com/xPDwUb3.jpg",
-              "https://i.imgur.com/3rfp691.jpg",
-              "https://i.imgur.com/kG05a29.jpg"
-            ],
+        {
+          "id": "47",
+          "title": "Radiant Citrus Eau de Parfum",
+          "price": 73,
+          "description": "Indulge in the essence of summer with this vibrant citrus-scented Eau de Parfum. Encased in a sleek glass bottle with a bold orange cap, this fragrance embodies freshness and elegance. Perfect for daily wear, it's an olfactory delight that leaves a lasting, zesty impression.",
+          "images": [
+            "https://i.imgur.com/xPDwUb3.jpg",
+            "https://i.imgur.com/3rfp691.jpg",
+            "https://i.imgur.com/kG05a29.jpg"
+          ],
+          "creationAt": "2024-02-22T02:08:48.000Z",
+          "updatedAt": "2024-02-22T02:08:48.000Z",
+          "category": {
+            "id": 5,
+            "name": "Miscellaneous",
+            "image": "https://i.imgur.com/BG8J0Fj.jpg",
             "creationAt": "2024-02-22T02:08:48.000Z",
-            "updatedAt": "2024-02-22T02:08:48.000Z",
-            "category": {
-              "id": 5,
-              "name": "Miscellaneous",
-              "image": "https://i.imgur.com/BG8J0Fj.jpg",
-              "creationAt": "2024-02-22T02:08:48.000Z",
-              "updatedAt": "2024-02-22T02:08:48.000Z"
-            }
-          },
-          {
-            "id": "48",
-            "title": "Sleek Olive Green Luggage",
-            "price": 48,
-            "description": "Travel in style with our durable hardshell carry-on, perfect for weekend getaways and business trips. This sleek olive green suitcase features smooth gliding wheels for easy airport navigation, a sturdy telescopic handle, and a secure zippered compartment to keep your belongings safe. Its compact size meets most airline overhead bin requirements, ensuring a hassle-free flying experience.",
-            "images": [
-              "https://i.imgur.com/jVfoZnP.jpg",
-              "https://i.imgur.com/Tnl15XK.jpg",
-              "https://i.imgur.com/7OqTPO6.jpg"
-            ],
-            "creationAt": "2024-02-22T02:08:48.000Z",
-            "updatedAt": "2024-02-22T02:08:48.000Z",
-            "category": {
-              "id": 5,
-              "name": "Miscellaneous",
-              "image": "https://i.imgur.com/BG8J0Fj.jpg",
-              "creationAt": "2024-02-22T02:08:48.000Z",
-              "updatedAt": "2024-02-22T02:08:48.000Z"
-            }
-          },
-          {
-            "id": "49",
-            "title": "Chic Fashion Handbag",
-            "price": 61,
-            "description": "Elevate your style with our Chic Transparent Fashion Handbag, perfect for showcasing your essentials with a clear, modern edge. This trendy accessory features durable acrylic construction, luxe gold-tone hardware, and an elegant chain strap. Its compact size ensures you can carry your day-to-day items with ease and sophistication.",
-            "images": [
-              "https://i.imgur.com/Lqaqz59.jpg",
-              "https://i.imgur.com/uSqWK0m.jpg",
-              "https://i.imgur.com/atWACf1.jpg"
-            ],
-            "creationAt": "2024-02-22T02:08:48.000Z",
-            "updatedAt": "2024-02-22T02:08:48.000Z",
-            "category": {
-              "id": 5,
-              "name": "Miscellaneous",
-              "image": "https://i.imgur.com/BG8J0Fj.jpg",
-              "creationAt": "2024-02-22T02:08:48.000Z",
-              "updatedAt": "2024-02-22T02:08:48.000Z"
-            }
+            "updatedAt": "2024-02-22T02:08:48.000Z"
           }
-        
-        
+        },
+        {
+          "id": "48",
+          "title": "Sleek Olive Green Luggage",
+          "price": 48,
+          "description": "Travel in style with our durable hardshell carry-on, perfect for weekend getaways and business trips. This sleek olive green suitcase features smooth gliding wheels for easy airport navigation, a sturdy telescopic handle, and a secure zippered compartment to keep your belongings safe. Its compact size meets most airline overhead bin requirements, ensuring a hassle-free flying experience.",
+          "images": [
+            "https://i.imgur.com/jVfoZnP.jpg",
+            "https://i.imgur.com/Tnl15XK.jpg",
+            "https://i.imgur.com/7OqTPO6.jpg"
+          ],
+          "creationAt": "2024-02-22T02:08:48.000Z",
+          "updatedAt": "2024-02-22T02:08:48.000Z",
+          "category": {
+            "id": 5,
+            "name": "Miscellaneous",
+            "image": "https://i.imgur.com/BG8J0Fj.jpg",
+            "creationAt": "2024-02-22T02:08:48.000Z",
+            "updatedAt": "2024-02-22T02:08:48.000Z"
+          }
+        },
+        {
+          "id": "49",
+          "title": "Chic Fashion Handbag",
+          "price": 61,
+          "description": "Elevate your style with our Chic Transparent Fashion Handbag, perfect for showcasing your essentials with a clear, modern edge. This trendy accessory features durable acrylic construction, luxe gold-tone hardware, and an elegant chain strap. Its compact size ensures you can carry your day-to-day items with ease and sophistication.",
+          "images": [
+            "https://i.imgur.com/Lqaqz59.jpg",
+            "https://i.imgur.com/uSqWK0m.jpg",
+            "https://i.imgur.com/atWACf1.jpg"
+          ],
+          "creationAt": "2024-02-22T02:08:48.000Z",
+          "updatedAt": "2024-02-22T02:08:48.000Z",
+          "category": {
+            "id": 5,
+            "name": "Miscellaneous",
+            "image": "https://i.imgur.com/BG8J0Fj.jpg",
+            "creationAt": "2024-02-22T02:08:48.000Z",
+            "updatedAt": "2024-02-22T02:08:48.000Z"
+          }
+        }
       ]
     }
   ]

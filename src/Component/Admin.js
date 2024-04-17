@@ -21,6 +21,8 @@ import Avatar from '@mui/material/Avatar';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import DvrIcon from '@mui/icons-material/Dvr';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const drawerWidth = 240;
 
@@ -209,9 +211,56 @@ const Admin = () => {
               </ListItemButton>
             </ListItem>
 
+            <ListItem disablePadding sx={{marginTop:'15px'}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ContentPasteSearchIcon sx={{ color: '#ffffa1', backgroundColor:'#ff983f', marginLeft: '8px', fontSize: 32 }} />
+                </ListItemIcon>
+                <Link to="/inquiry" style={{ textDecoration: 'none', color: 'white', marginLeft: '10px' }}>
+                  <ListItemText primary="Inquiry" sx={{ opacity: open ? 1 : 0, }} />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+
+
+            <ListItem disablePadding sx={{marginTop:'15px'}}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <PaymentIcon sx={{ color: '#ffffa1', backgroundColor:'#ff983f', marginLeft: '8px', fontSize: 32 }} />
+              </ListItemIcon>
+              <Link to="/payment" style={{ textDecoration: 'none', color: 'white', marginLeft: '10px' }}>
+                <ListItemText primary="Payment" sx={{ opacity: open ? 1 : 0, }} />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+
             {/* Add logout button */}
             <List>
-              <ListItem disablePadding sx={{marginTop:'455px'}}>
+              <ListItem disablePadding sx={{marginTop:'330px'}}>
                 <ListItemButton
                   sx={{
                     minHeight: 48,
