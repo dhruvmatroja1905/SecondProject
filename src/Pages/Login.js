@@ -6,16 +6,12 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import login from '.././assets/login.png';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 
 const Login = () => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            navigate('/dashboard');
-        }
-    }, []); // Empty dependency array ensures this effect runs only once, on component mount
+     
 
     const initialValues = {
         username: '',
@@ -27,29 +23,21 @@ const Login = () => {
         password: Yup.string().required('Password is required'),
     });
 
-    const handleSignIn = async (values) => {
-        try {
-            const response = await fetch('https://dummyjson.com/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: values.username,
-                    password: values.password,
-                })
-            });
+    const handleSignIn =  (values) => {
+        console.log('Registering:', values);
+       
+        // Perform registration logic here
+        axios.post("http://localhost:5000/login", values)
+        .then(result => {
 
-            if (!response.ok) {
-                throw new Error('Invalid credentials');
+            console.log(result)
+            if(result.data === "success") {
+              navigate('/dashboard')
             }
-
-            const data = await response.json();
-            localStorage.setItem('user-info', JSON.stringify(data));
-            localStorage.setItem('token', data.token);
-            console.log('API data stored in local storage:', data);
-            navigate('/dashboard');
-        } catch (error) {
-            console.error('Error:', error.message);
         }
+    )
+      .catch(err => console.log(err))
+      navigate('/dashboard')
     };
 
     return (
@@ -101,7 +89,7 @@ const Login = () => {
                                         label="Remember me"
                                         style={{ marginBottom: '16px' }}
                                     />
-                                    <Button type="submit" variant="contained" fullWidth style={{ marginBottom: '10px', backgroundColor: 'rgb(214, 179, 114)', color: 'white' }}>SIGN IN</Button>
+                                    <Button type="submit" variant="contained" fullWidth style={{ marginBottom: '10px', backgroundColor: 'rgb(214, 179, 114)', color: 'white' }} onClick={handleSignIn}>SIGN IN</Button>
                                     <Typography>
                                         <Link href="#" underline="hover">Forgot password?</Link>
                                     </Typography>

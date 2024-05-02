@@ -5,6 +5,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import login from '.././assets/login.png'; // Import register image
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
+import { Password } from '@mui/icons-material';
 
 const Register = () => {
     const initialValues = {
@@ -12,7 +14,7 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        termsAccepted: false
+     
     };
 
     const validationSchema = Yup.object().shape({
@@ -20,12 +22,15 @@ const Register = () => {
         email: Yup.string().email('Invalid email').required('Email is required'),
         password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
-        termsAccepted: Yup.boolean().oneOf([true], 'Terms and conditions must be accepted').required('Terms and conditions must be accepted')
+       
     });
 
     const handleRegister = (values) => {
         console.log('Registering:', values);
         // Perform registration logic here
+        axios.post("http://localhost:5000/register", values)
+        .then(result => console.log(result))
+        .catch(err => console.log(err))
     };
 
     return (
@@ -96,14 +101,8 @@ const Register = () => {
                                         helperText={touched.confirmPassword && errors.confirmPassword}
                                         style={{ marginBottom: '16px' }}
                                     />
-                                    <FormControlLabel
-                                        control={<Checkbox name="termsAccepted" color="primary" />}
-                                        label="I accept the terms and conditions."
-                                        style={{ marginBottom: '16px' }}
-                                    />
-                                    {errors.termsAccepted && touched.termsAccepted && (
-                                        <Typography color="error" variant="body2">{errors.termsAccepted}</Typography>
-                                    )}
+                                   
+                                   
                                     <Button type="submit" variant="contained" fullWidth style={{ marginBottom: '10px', backgroundColor: 'orange', color: 'white' }}>SIGN UP</Button>
                                     <Typography>
                                     Already have an account?  <Link component={RouterLink} to="/login" underline="hover"> Sign In</Link>

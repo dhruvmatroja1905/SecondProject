@@ -26,7 +26,7 @@ const Dashboard = () => {
    
 
     return (
-        <div style={{ backgroundColor: '#1D1F21', minHeight: '100vh',  }}>
+        <div style={{  minHeight: '100vh',backgroundColor: '#aeaeae24'  }}>
             <Box>
                 <Admin />
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

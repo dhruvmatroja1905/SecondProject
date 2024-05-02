@@ -1,41 +1,91 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { Box, TextField, Grid, Typography } from '@mui/material';
-import api from '../API/jsonapi';
+import { Box, TextField, Grid, Typography, Button } from '@mui/material';
+import axios from 'axios'; // Import axios for making HTTP requests
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import FormImg6 from '../../assets/FormImg6.jpg';
 
+const Step7Form = ({ errors, touched }) => {
+  const handleConfirm = async (formData) => {
+    try {
+      // Make a PATCH request to your backend API endpoint
+      const response = await axios.post('http://localhost:5000/business-information', formData);
 
+      console.log('Business services sent to the server:', formData);
+      console.log('Server response:', response.data);
 
+      toast.success('Your data has been successfully added!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
 
+      // Optionally navigate to another page after successful submission
+     
+    } catch (error) {
+      console.error('Error:', error.message);
+      toast.error('An error occurred while submitting the form.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    }
+  };
 
- const Step7Form = ({ errors, touched }) => (
-  <Form id="step7Form">
-  <Box>
-    <Grid container spacing={2} alignItems="center">
-      <Grid item xs={12} md={4}>
-        <img src={FormImg6} alt="Business Logo" style={{ width: '100%', marginTop: '40px' }} />
-      </Grid>
-      <Grid item xs={12} md={8} style={{ marginBottom: '330px' }}>
-        <Typography variant="h6" gutterBottom>
-          Business Services
-        </Typography>
-        <Field
-          name="servicesOffered"
-          as={TextField}
-          required
-          label="Services Offered"
-          fullWidth
-          multiline
-          rows={4}
-          margin="normal"
-          error={errors.ownerEmailAddress && touched.ownerEmailAddress}
-          helperText={touched.ownerEmailAddress && errors.ownerEmailAddress}
-         
-          />
-      </Grid>
-    </Grid>
-  </Box>
-</Form>
-);
+  return (
+    <Formik
+      initialValues={{
+        servicesOffered: '',
+      }}
+    >
+      {({ values }) => (
+        <Form id="step7Form">
+          <Box>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={12} md={4}>
+                <img src={FormImg6} alt="Business Logo" style={{ width: '100%', marginTop: '40px' }} />
+              </Grid>
+              <Grid item xs={12} md={8} style={{ marginBottom: '330px' }}>
+                <Typography variant="h6" gutterBottom>
+                  Business Services
+                </Typography>
+                <Field
+                  name="servicesOffered"
+                  as={TextField}
+                  required
+                  label="Services Offered"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  margin="normal"
+                  error={errors.servicesOffered && touched.servicesOffered}
+                  helperText={touched.servicesOffered && errors.servicesOffered}
+                />
+              </Grid>
+            </Grid>
+          </Box>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleConfirm(values)}
+          >
+            Confirm
+          </Button>
+          <ToastContainer />
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
- export default Step7Form;
+export default Step7Form;

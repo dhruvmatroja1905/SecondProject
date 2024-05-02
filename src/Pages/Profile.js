@@ -30,20 +30,21 @@ import SendIcon from '@mui/icons-material/Send';
 import { useMediaQuery } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserDataRequest , addTocart} from '../Redux/Action/Action/profileAction';
+import { fetchUserDataRequest, addTocart } from '../Redux/Action/Action/profileAction';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 const Profile = () => {
 
   // Extract userId from route parameters
   const { id } = useParams();
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.allusers.users);
-  console.log(users, "from profile page");
+  //const users = useSelector((state) => state.allusers.users);
+  //console.log(users, "from profile page");
 
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [open2Dialog, setOpen2Dialog] = useState(false);
@@ -67,7 +68,23 @@ const Profile = () => {
 
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/business-information');
+        setFormData(response.data);
+        // Assuming setFormData is a state setter function to update your component's state
+        console.log("api data", response.data)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once after initial render
+
+
+  {/* 
+  useEffect(() => {
     dispatch(fetchUserDataRequest(id)); // Dispatch the action
   }, [dispatch, id]);
 
@@ -77,12 +94,16 @@ const Profile = () => {
     }
   }, [users]);
 
+  // Add console.log here to log formData
+  console.log("form data from profile", formData);
+  */}
+
   const handleAddToCart = (product) => {
-    console.log('Product added to cart:', product);
+    // console.log('Product added to cart:', product);
     dispatch(addTocart(product)); // Pass the product data to the dispatch function
     toast.success('Item added successfully!');
   };
-  
+
 
   const theme = useTheme();
 
@@ -178,7 +199,7 @@ const Profile = () => {
         <Grid container spacing={isMobile ? 2 : 4}>
 
           <Grid container spacing={isMobile ? 2 : 4}>
-            <Grid item  lg={12} xs={9}>
+            <Grid item lg={12} xs={9}>
               <CardMedia
                 component="img"
                 src={image}
@@ -196,31 +217,33 @@ const Profile = () => {
           {/* 1st column for user info*/}
           <Grid item lg={isMobile ? 12 : 4} xs={12}>
 
-            {formData ? ( // Check if formData exists
-              <Card key={formData.id} sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}> {/* Render a Card for the formData */}
+            {formData && formData.map((data) => (
+              <Card key={formData.id} sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}> {/* Render a Card for the formData */}
                 <CardContent>
 
-
-                  <CardMedia
-                    component="img"
-                    height="200" // Set height to auto to maintain aspect ratio
-                    width="100%" // Set width to cover the whole card width
-                    image={formData.avatar}
-                    alt="avatar"
-                    sx={{ borderRadius: '0%', mx: 'auto' }}
-                  />
-
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1,}}>
-                    <DvrIcon sx={{ fontSize: 'small', }} />{formData.fullName}
-                  </Typography>
-                  
+                <CardMedia
+                component="img"
+                height="200"
+                width="100%"
+                image={`http://localhost:5000/${data.businessLogo}`} 
+                alt="logo"
+                sx={{ borderRadius: '0%', mx: 'auto' }}
+              />
+              
+              
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 1, }}>
-                    <LocationOnIcon sx={{ fontSize: 'small', }} /> {formData.businessAddress}
+                    <DvrIcon sx={{ fontSize: 'small', }} />{data.ownerFullName}
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1, }}>
+                    <LocationOnIcon sx={{ fontSize: 'small', }} /> {data.businessAddress}
+
                   </Typography>
 
                   <Box sx={{ display: 'flex', mt: 2 }}>
                     <Button variant="contained" sx={{
-                      mr: 1, height: '40px', py: '5px', backgroundColor: '#ff983f', '&:hover': { backgroundColor: '#ff983f', 
+                      mr: 1, height: '40px', py: '5px', backgroundColor: '#ff983f', '&:hover': {
+                        backgroundColor: '#ff983f',
                       }
                     }}>
                       <CallIcon sx={{ color: 'white' }} />
@@ -228,7 +251,8 @@ const Profile = () => {
                     </Button>
 
                     <Button variant="contained" onClick={handleOpenDialog} sx={{
-                      height: '40px', py: '5px', backgroundColor: '#ff983f', '&:hover': {backgroundColor: '#ff983f', 
+                      height: '40px', py: '5px', backgroundColor: '#ff983f', '&:hover': {
+                        backgroundColor: '#ff983f',
                       }
                     }}>
                       <InfoIcon sx={{ color: 'white', marginBottom: '1px', }} />
@@ -236,7 +260,8 @@ const Profile = () => {
                     </Button>
 
                     <Button variant="contained" onClick={handle2OpenDialog} sx={{
-                      height: '40px', marginLeft: '8px', py: '5px', backgroundColor: '#ff983f', '&:hover': { backgroundColor: '#ff983f', 
+                      height: '40px', marginLeft: '8px', py: '5px', backgroundColor: '#ff983f', '&:hover': {
+                        backgroundColor: '#ff983f',
                       }
                     }}>
                       <ShareIcon sx={{ fontSize: '20px', width: '30%' }} />
@@ -246,9 +271,7 @@ const Profile = () => {
 
                 </CardContent>
               </Card>
-            ) : ( // If formData is null or undefined, render a loading message
-              <Typography variant="body1">Loading...</Typography>
-            )}
+            ))}
 
             {/* Dialog box */}
             <InquiryForm open={openDialog} handleCloseDialog={handleCloseDialog} />
@@ -256,16 +279,16 @@ const Profile = () => {
 
 
             <Grid item lg={12} >
-              <Card sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}>
+              <Card sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>Business Hours</Typography>
                   <Divider />
-                  {formData ? (
+                  {formData && formData.map((data) => (
                     <Box>
                       {/* Opening Hour with Icon */}
                       <Box display="flex" alignItems="center">
                         <Icon sx={{ fontSize: 27, marginRight: 1 }}><AccessAlarmsIcon /></Icon> {/* Icon */}
-                        <Typography variant="body1"><strong> Opening Hour :</strong> {formData.openingHour}</Typography>
+                        <Typography variant="body1"><strong> Opening Hour :</strong> {data.openingHour}</Typography>
                       </Box>
                       {/* Closing Hour with Icon */}
 
@@ -273,7 +296,7 @@ const Profile = () => {
 
                       <Box display="flex" alignItems="center" marginTop='10px'>
                         <Icon sx={{ fontSize: 27, marginRight: 1, marginBottom: '3px' }}><AccessAlarmsIcon /></Icon> {/* Icon */}
-                        <Typography variant="body1"><strong > Closing  Hour : </strong> {formData.closingHour}</Typography>
+                        <Typography variant="body1"><strong > Closing  Hour : </strong> {data.closingHour}</Typography>
                       </Box>
                       <Divider />
                       <Box display="flex" alignItems="center" marginTop='10px'>
@@ -281,68 +304,40 @@ const Profile = () => {
                         <Typography variant="body1" gutterBottom>Week Day Off</Typography>
                       </Box>
                       <Divider />
-                      <Chip label={formData.weekDayOff} sx={{ backgroundColor: '#ff983f', color: 'white' }} />
+                      <Chip label={data.weekOffDays} sx={{ backgroundColor: '#ff983f', color: 'white' }} />
                       {/* Add more business hour details here */}
                     </Box>
-                  ) : (
-                    <Typography variant="body1">Loading...</Typography>
-                  )}
+                  ))}
                 </CardContent>
               </Card>
             </Grid>
 
 
 
-            {formData?.website || formData?.socialMedia?.GitHub || formData?.socialMedia?.Twitter || formData?.socialMedia?.Instagram || formData?.socialMedia?.Facebook ? (
-              <Card sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>Useful Links</Typography>
-                  <Divider />
-                  <List sx={{ borderRadius: 2 }}>
-
-                    {formData?.socialMedia?.GitHub && (
-                      <ListItemButton disablePadding onClick={() => window.open(`https://github.com/${formData.socialMedia.GitHub}`, '_blank')}>
-                        <ListItemIcon>
-                          <GitHub style={{ color: '#333333' }} />
-                        </ListItemIcon>
-                        <ListItemText primary={formData.socialMedia.GitHub} sx={{ whiteSpace: 'nowrap', width: '160px' }} />
-                      </ListItemButton>
-                    )}
-                    {formData?.socialMedia?.Twitter && (
-                      <ListItemButton disablePadding onClick={() => window.open(`https://twitter.com/${formData.socialMedia.Twitter}`, '_blank')}>
-                        <ListItemIcon>
-                          <Twitter style={{ color: '#55acee' }} />
-                        </ListItemIcon>
-                        <ListItemText primary={formData.socialMedia.Twitter} sx={{ whiteSpace: 'nowrap' }} />
-                      </ListItemButton>
-                    )}
-                    {formData?.socialMedia?.Instagram && (
-                      <ListItemButton disablePadding onClick={() => window.open(`https://instagram.com/${formData.socialMedia.Instagram}`, '_blank')}>
-                        <ListItemIcon>
-                          <Instagram style={{ color: '#ac2bac' }} />
-                        </ListItemIcon>
-                        <ListItemText primary={formData.socialMedia.Instagram} sx={{ whiteSpace: 'nowrap' }} />
-                      </ListItemButton>
-                    )}
-                    {formData?.socialMedia?.Facebook && (
-                      <ListItemButton disablePadding onClick={() => window.open(`https://facebook.com/${formData.socialMedia.Facebook}`, '_blank')}>
-                        <ListItemIcon>
-                          <Facebook style={{ color: '#3b5998' }} />
-                        </ListItemIcon>
-                        <ListItemText primary={formData.socialMedia.Facebook} sx={{ whiteSpace: 'nowrap' }} />
-                      </ListItemButton>
-                    )}
-
-
-                  </List>
-                </CardContent>
-              </Card>
-            ) : null}
+            <Card sx={{ mb: 2, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>Useful Links</Typography>
+              <Divider />
+              <List sx={{ borderRadius: 2 }}>
+                {Object.entries(formData?.socialMedia || {}).map(([platform, link]) => (
+                  <ListItemButton key={platform} disablePadding onClick={() => window.open(`https://${platform}.com/${link}`, '_blank')}>
+                    <ListItemIcon>
+                      {platform === 'GitHub' && <GitHub style={{ color: '#333333' }} />}
+                      {platform === 'Twitter' && <Twitter style={{ color: '#55acee' }} />}
+                      {platform === 'Instagram' && <Instagram style={{ color: '#ac2bac' }} />}
+                      {platform === 'Facebook' && <Facebook style={{ color: '#3b5998' }} />}
+                    </ListItemIcon>
+                    <ListItemText primary={link} sx={{ whiteSpace: 'nowrap' }} />
+                  </ListItemButton>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+          
 
 
 
-
-            <Card sx={{borderRadius:'15px'}}>
+            <Card sx={{ borderRadius: '15px' }}>
               <iframe
                 src={formData ? formData.mapEmbedUrl : ''} // Check if formData exists before accessing mapEmbedUrl
                 width="800"
@@ -364,23 +359,25 @@ const Profile = () => {
 
               <Grid lg={12} xs={1}>
                 {/* ProfileHeader component */}
-                <ProfileHeader />
+                
+              <ProfileHeader />
+             
               </Grid>
 
 
-              <Grid item lg={12} xs={3}id="businessDetails">
-                {formData ? ( // Check if formData exists
-                  <Card key={formData.id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)' , borderRadius:'15px' }}>
+              <Grid item lg={12} xs={3} id="businessDetails">
+                {formData && formData.map((data) => (
+                  <Card key={formData._id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                     {/* Render a single Card for the formData */}
                     <CardContent>
-                      <Typography variant="h6" gutterBottom sx={{fontFamily: 'Roboto, sans-serif' }}>Business Details</Typography>
+                      <Typography variant="h6" gutterBottom sx={{ fontFamily: 'Roboto, sans-serif' }}>Business Details</Typography>
                       <Divider />
                       {/* Card content */}
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                         <PersonIcon sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Business Name</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.businessName}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.businessName}</Typography>
 
 
                       <Divider />
@@ -391,27 +388,18 @@ const Profile = () => {
                       </Box>
 
 
-                      {formData?.website ? (
-                        <ListItemButton disablePadding onClick={() => window.open(formData.website, '_blank')}>
-                          <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{formData.website}</Typography>
-                        </ListItemButton>
-                      ) : (
-                        <Button variant="contained" color="primary" sx={{ marginLeft: '50px', marginTop: '10px', marginBottom: '10px',
-                        backgroundColor: '#ff983f', '&:hover': { backgroundColor: '#ff983f', 
-                      }
                       
-                      }}>
-                          Add Website
-                        </Button>
-                      )}
-
+                        <ListItemButton disablePadding onClick={() => window.open(formData.businessWebsite, '_blank')}>
+                          <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{data.businessWebsite}</Typography>
+                        </ListItemButton>
+                      
 
                       <Divider />
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                         <CategoryIcon sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Business Category</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.businessCategory}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.businessCategory}</Typography>
                       {/* Add other details similarly */}
                       <Divider />
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
@@ -419,7 +407,7 @@ const Profile = () => {
                         <Typography variant="body1">Business Address</Typography>
                       </Box>
 
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px', cursor: 'pointer' }}>{formData.businessAddress}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px', cursor: 'pointer' }}>{data.businessAddress}</Typography>
 
 
                       <Divider />
@@ -428,7 +416,7 @@ const Profile = () => {
                         <Typography variant="body1">No. Of Employees</Typography>
                       </Box>
 
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.numberOfEmployees}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.numberOfEmployees}</Typography>
 
 
                       <Divider />
@@ -437,7 +425,7 @@ const Profile = () => {
                         <Typography variant="body1">Tax ID</Typography>
                       </Box>
 
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.taxID}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.taxID}</Typography>
 
 
                       <Divider />
@@ -446,28 +434,22 @@ const Profile = () => {
                         <Typography variant="body1">Business Establishment Date</Typography>
                       </Box>
 
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.establishmentDate}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.establishmentDate}</Typography>
 
 
                     </CardContent>
                   </Card>
-                ) : ( // If formData is null or undefined, render a loading message
-                  <Typography variant="body1">Loading...</Typography>
-                )}
+                ))}
 
 
 
               </Grid>
 
-
-
-
-
-
-              <Grid item lg={12}   xs={3} id="products">
+/
+              <Grid item lg={12} xs={3} id="products">
                 {formData && formData.products && formData.products.length > 0 && (
 
-                  <Card sx={{ mb: 2, width: '390%', height: '150%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}>
+                  <Card sx={{ mb: 2, width: '390%', height: '150%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                     <Card >
                       <Typography variant="h6" gutterBottom sx={{ marginLeft: '15px' }}>Our Products</Typography>
                       <Divider />
@@ -488,14 +470,16 @@ const Profile = () => {
                               <Typography variant="subtitle1" style={{ fontSize: '12px', marginBottom: '8px' }}>{product.title}</Typography>
                               <Typography variant="subtitle1" style={{ fontSize: '12px', marginBottom: '8px', fontWeight: 'bold' }}>${product.price}</Typography>
 
-                              <Button variant="contained" onClick={() => handleAddToCart(product)} sx={{ width: '100%', py: '8px', fontSize: '10px',
-                              backgroundColor: '#ff983f', '&:hover': { backgroundColor: '#ff983f', 
-                            }
-                            
-                            }}>
+                              <Button variant="contained" onClick={() => handleAddToCart(product)} sx={{
+                                width: '100%', py: '8px', fontSize: '10px',
+                                backgroundColor: '#ff983f', '&:hover': {
+                                  backgroundColor: '#ff983f',
+                                }
+
+                              }}>
                                 <AddShoppingCartIcon sx={{ fontSize: '20px', marginRight: '8px' }} />
                                 Add To Cart
-                                <ToastContainer position="bottom-left"  />
+                                <ToastContainer position="bottom-left" />
                               </Button>
                             </div>
 
@@ -514,10 +498,10 @@ const Profile = () => {
 
 
 
-              <Grid item lg={12}  xs={3} id="ownerDetails">
+              <Grid item lg={12} xs={3} id="ownerDetails">
 
-                {formData ? ( // Check if formData exists
-                  <Card key={formData.id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}>
+              {formData && formData.map((data) => (
+                  <Card key={data.id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                     {/* Render a single Card for the formData */}
                     <CardContent>
                       <Typography variant="h6" gutterBottom>Owner's Details</Typography>
@@ -527,42 +511,40 @@ const Profile = () => {
                         <PersonIcon sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Full Name</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.fullName}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.ownerFullName}</Typography>
                       <Divider />
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                         <Email sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Email</Typography>
                       </Box>
-                      <ListItemButton disablePadding onClick={() => window.open(`mailto:${formData.email}`, '_blank')}>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{formData.email}</Typography>
+                      <ListItemButton disablePadding onClick={() => window.open(`mailto:${data.ownerEmailAddress}`, '_blank')}>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{data.ownerEmailAddress}</Typography>
                       </ListItemButton>
                       <Divider />
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                         <Phone sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Phone</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.phone}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.ownerPhoneNumber}</Typography>
                       {/* Add other details similarly */}
                       <Divider />
                       <Box sx={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                         <LocationOnIcon sx={{ marginRight: 4 }} />
                         <Typography variant="body1">Address</Typography>
                       </Box>
-                      <ListItemButton disablePadding onClick={() => window.open(`mailto:${formData.address}`, '_blank')}>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{formData.address}</Typography>
+                      <ListItemButton disablePadding onClick={() => window.open(`mailto:${data.ownerAddress}`, '_blank')}>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '40px', cursor: 'pointer' }}>{data.ownerAddress}</Typography>
                       </ListItemButton>
 
                     </CardContent>
                   </Card>
-                ) : ( // If formData is null or undefined, render a loading message
-                  <Typography variant="body1">Loading...</Typography>
-                )}
+                ) )}
               </Grid>
 
 
-              <Grid item lg={12}  xs={3} id="service">
-                {formData ? ( // Check if formData exists
-                  <Card key={formData.id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)' , borderRadius:'15px'}}>
+              <Grid item lg={12} xs={3} id="service">
+              {formData && formData.map((data) => (
+                  <Card key={data.id} sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                     {/* Render a single Card for the formData */}
                     <CardContent>
                       <Typography variant="h6" gutterBottom>Service Information</Typography>
@@ -572,7 +554,7 @@ const Profile = () => {
                         <CategoryIcon sx={{ marginRight: 4 }} /> {/* Icon for service type */}
                         <Typography variant="body1">Type of Service</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.servicesOffered}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.businessCategory}</Typography>
 
                       {/* Add other service details similarly */}
                       <Divider />
@@ -581,19 +563,17 @@ const Profile = () => {
                         <DescriptionIcon sx={{ marginRight: 4 }} /> {/* Icon for description */}
                         <Typography variant="body1">Service Description</Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{formData.serviceDescription}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, ml: '55px' }}>{data.servicesOffered}</Typography>
 
 
                     </CardContent>
                   </Card>
-                ) : ( // If formData is null or undefined, render a loading message
-                  <Typography variant="body1">Loading...</Typography>
-                )}
+                )) }
               </Grid>
 
 
-              <Grid item lg={12}  xs={3} id="gallery" >
-                <Card sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)' , borderRadius:'15px'}}>
+              <Grid item lg={12} xs={3} id="gallery" >
+                <Card sx={{ mb: 2, width: '390%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                   {/* Render a single Card for the formData */}
                   <CardContent>
                     <Typography variant="h6" gutterBottom>Gallery</Typography>
@@ -621,7 +601,7 @@ const Profile = () => {
                 </Card>
               </Grid>
 
-              <Grid item lg={12}  xs={3} sx={{ position: 'sticky', bottom: 0 }}>
+              <Grid item lg={12} xs={3} sx={{ position: 'sticky', bottom: 0 }}>
 
 
                 <TextField
@@ -639,11 +619,13 @@ const Profile = () => {
                     },
                     endAdornment: (
                       <InputAdornment position="end">
-                        <Button variant="contained" onClick={handleSubmit} sx={{ borderRadius: '8px', color: 'white', 
-                        backgroundColor: '#ff983f', '&:hover': {backgroundColor: '#ff983f', 
-                      }
-                      
-                      }}>
+                        <Button variant="contained" onClick={handleSubmit} sx={{
+                          borderRadius: '8px', color: 'white',
+                          backgroundColor: '#ff983f', '&:hover': {
+                            backgroundColor: '#ff983f',
+                          }
+
+                        }}>
                           <SendIcon />
                         </Button>
                       </InputAdornment>
@@ -659,7 +641,7 @@ const Profile = () => {
 
           {/* 3rd column for ads */}
           <Grid item lg={isMobile ? 12 : 4} xs={12}>
-            <Card sx={{ mb: 2, display: 'flex', marginLeft: '350px', paddingRight: '335px', height: '100%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius:'15px' }}>
+            <Card sx={{ mb: 2, display: 'flex', marginLeft: '350px', paddingRight: '335px', height: '100%', boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
                 <Grid item lg={12}>

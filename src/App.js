@@ -30,8 +30,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/project" element={<Project />} />
           <Route path="/register" element={<Register />} />
+          
           <Route path="/authentication" element={<TryForm />} />
           {/* Wrap the Route with Suspense and provide a fallback */}
+
           <Route
             path="/profile"
             element={
@@ -40,6 +42,7 @@ function App() {
               </Suspense>
             }
           />
+
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>

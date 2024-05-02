@@ -229,7 +229,7 @@ const Admin = () => {
                   <ContentPasteSearchIcon sx={{ color: '#ffffa1', backgroundColor:'#ff983f', marginLeft: '8px', fontSize: 32 }} />
                 </ListItemIcon>
                 <Link to="/inquiry" style={{ textDecoration: 'none', color: 'white', marginLeft: '10px' }}>
-                  <ListItemText primary="Inquiry" sx={{ opacity: open ? 1 : 0, }} />
+                  <ListItemText primary="Orders" sx={{ opacity: open ? 1 : 0, }} />
                 </Link>
               </ListItemButton>
             </ListItem>

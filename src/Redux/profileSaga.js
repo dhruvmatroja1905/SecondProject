@@ -2,13 +2,15 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import api from '../Component/API/jsonapi';
 import { ACTIONTYPE } from '../Redux/Action/Constant/action-type';
 import { setUser, fetchUserFailure, fetchUserDataRequest } from '../Redux/Action/Action/profileAction';
+import axios from 'axios';
 
 function* fetchProductsSaga(action) {
   const { payload: userId } = action;
 
   try {
 
-    const response = yield call(api.get, `/users/${userId}`);
+    const response = yield call(axios.get, 'http://localhost:5000/business-information');
+
 
 
     console.log('API data from saga:', response.data);

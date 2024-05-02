@@ -28,14 +28,14 @@ const navigate = useNavigate()
   };
 
   
-  useEffect(() => {
-    // Check if user is logged in
-    const token = localStorage.getItem('token');
-    if (!token) {
-      // Redirect to home page if user is not logged in
-      navigate('/home');
-    }
-  }, [navigate]);
+ // useEffect(() => {
+ //   // Check if user is logged in
+ //   const token = localStorage.getItem('token');
+ //   if (!token) {
+ //     // Redirect to home page if user is not logged in
+ //     navigate('/home');
+ //   }
+ // }, [navigate]);
 
   return (
     <div  style={{ backgroundColor: '#aeaeae24', minHeight: '100vh' }}>
@@ -43,7 +43,7 @@ const navigate = useNavigate()
         <Admin />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {/* Adding breadcrumbs here */}
-          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '90px',marginRight:'40px',  backgroundColor: '#444648', px:'20px', py:'10px',  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '90px',width:'90%' ,marginLeft:'-20px', backgroundColor: '#444648', px:'20px', py:'10px',  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <div role="presentation">
               <Breadcrumbs aria-label="breadcrumb">
                 <Link underline="hover" color="inherit" component={RouterLink} to="/home" sx={{color:'white'}}>

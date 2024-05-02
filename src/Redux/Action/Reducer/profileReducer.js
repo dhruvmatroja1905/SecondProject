@@ -2,7 +2,7 @@ import { addProduct, addTocart } from '../Action/profileAction';
 import { ACTIONTYPE } from '../Constant/action-type';
 
 const initialValues = {
-  users: {},
+  users: [],
   error: '',
   cartCount: 0,
   cartItems: [],
@@ -12,6 +12,7 @@ const initialValues = {
 export const profileReducer = (state = initialValues, { type, payload }) => {
   switch (type) {
     case ACTIONTYPE.SET_USERS:
+      console.warn(payload, "from reducer");
       return { ...state, users: { ...payload } };
 
     case ACTIONTYPE.FETCH_USERS_REQUEST:

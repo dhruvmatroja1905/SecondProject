@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Admin from './Admin';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import qr_img from '../assets/qr_img.png'; // Correct import statement
+import { Typography } from '@mui/material';
+import { Box,  } from '@mui/material';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Payment = () => {
     const [fields, setFields] = useState([{ key: '', number: '' }]);
@@ -35,20 +39,46 @@ const Payment = () => {
     };
 
     const handleSubmit = () => {
-        // Here you can add your logic to submit the form data
-        // For demonstration purposes, let's just show a toast message
+    
         toast.success('Data added successfully!');
     };
 
     return (
-        <div>
+        <div style={{backgroundColor: '#aeaeae24',  minHeight: '100vh'}}>
             <ToastContainer />
             <div>
                 <Admin />
+       
+
+
+            <Box sx={{ display: 'flex', width:'70%',alignItems: 'center', marginTop: '5px', width: '70%', marginLeft:'310px',backgroundColor: '#444648', px:'20px', py:'10px',  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+            <div role="presentation">
+              <Breadcrumbs aria-label="breadcrumb">
+                <Link underline="hover" color="inherit" component={RouterLink} to="/home" sx={{color:'white'}}>
+                  LOGIN
+                </Link>
+                <Link underline="hover" color="inherit" component={RouterLink} to="/dashboard" sx={{color:'white'}}>
+                  DASHBOARD
+                </Link>
+                <Link
+                  underline="hover"
+                  color="text.primary"
+                  component={RouterLink}
+                  to="/payment"
+                  aria-current="page"
+                  sx={{color:'white'}}
+                >
+                  Payment
+                </Link>
+              </Breadcrumbs>
             </div>
-            <div style={{ width: '1000px', marginLeft: '300px' }}>
+
+          </Box>
+
+            <div style={{  width: '70%' ,marginLeft: '310px', marginTop: '10px', }}>
+            <Typography variant="h4">Choose Payment Mode</Typography>
                 {fields.map((field, index) => (
-                    <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
+                    <div key={index} style={{ display: 'flex', marginBottom: '10px', marginTop:'20px' }}>
                         <input
                             type="text"
                             placeholder="Key"
@@ -95,7 +125,7 @@ const Payment = () => {
                         padding: '8px 16px',
                         border: 'none',
                         borderRadius: '5px',
-                        backgroundColor: '#4CAF50',
+                        backgroundColor: '#ff983f',
                         color: 'white',
                         fontSize: '16px',
                         cursor: 'pointer',
@@ -140,10 +170,6 @@ const Payment = () => {
                         )}
                     </div>
                 ))}
-                
-
-
-
 
                 <div>
                     <button
@@ -152,7 +178,7 @@ const Payment = () => {
                             padding: '8px 16px',
                             border: 'none',
                             borderRadius: '5px',
-                            backgroundColor: '#4CAF50',
+                            backgroundColor: '#ff983f',
                             color: 'white',
                             fontSize: '16px',
                             cursor: 'pointer',
@@ -163,7 +189,7 @@ const Payment = () => {
                     </button>
                 </div>
             </div>
-         
+            </div>
         </div>
     );
 };

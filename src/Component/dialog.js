@@ -164,12 +164,20 @@ const CustomDialog = ({ handleCloseDialog, }) => {
 
   const handleNext = () => {
     let newSkipped = skipped;
+   
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
+    
 
-
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+  
+    }));
+  
+    // Log the updated formData
+    console.log(formData);
 
     // Validate Step 1 form before proceeding
     if (activeStep === 0) {
@@ -308,6 +316,7 @@ const CustomDialog = ({ handleCloseDialog, }) => {
         return (
           <Formik
             initialValues={formData}
+            
             validationSchema={Step1FormValidationSchema}
             onSubmit={(values, { setSubmitting }) => {
               handleFormSubmit(values);
